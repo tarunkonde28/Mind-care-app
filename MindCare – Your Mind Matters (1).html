@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>MindCare – Your Mind Matters</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f6f4fd;--card:#fff;--tx:#2d2a45;--mu:#6b6888;--lav:#c9b8f5;--lavd:#7c5fd6;--blue:#cfe6fb;--mint:#cdf1e0;--ln:#e6e1f5;--sh:0 6px 20px rgba(124,95,214,.12);--bot:#ece6fb;--top:#e1f0fd;--err:#c0392b}
+@media (prefers-color-scheme:dark){:root:not([data-theme=light]){--bg:#17152a;--card:#232040;--tx:#f0edff;--mu:#a9a5c9;--lav:#4b3d8a;--lavd:#b9a3ff;--blue:#24405c;--mint:#1f4a3f;--ln:#38335f;--sh:0 6px 20px rgba(0,0,0,.3);--bot:#2a2350;--top:#1d3350;--err:#ff8a7a}}
+:root[data-theme=dark]{--bg:#17152a;--card:#232040;--tx:#f0edff;--mu:#a9a5c9;--lav:#4b3d8a;--lavd:#b9a3ff;--blue:#24405c;--mint:#1f4a3f;--ln:#38335f;--sh:0 6px 20px rgba(0,0,0,.3);--bot:#2a2350;--top:#1d3350;--err:#ff8a7a}
+*{box-sizing:border-box;margin:0}
+html,body{height:100%}
+:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+body{font-family:Poppins,Inter,system-ui,sans-serif;background:var(--bg);color:var(--tx);display:flex;justify-content:center}
+#app{width:100%;max-width:430px;height:100%;position:relative;display:flex;flex-direction:column;overflow:hidden;background:var(--bg)}
+.scr{display:none;flex:1;overflow-y:auto;padding:20px 18px 24px;animation:fade .35s}
+.scr.on{display:block}.scr.flex.on{display:flex;flex-direction:column}
+@keyframes fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+h1{font-size:24px;font-weight:700}h2{font-size:18px;font-weight:600;margin:18px 0 10px}p{line-height:1.5}.mu{color:var(--mu);font-size:13px}
+.card{background:var(--card);border-radius:22px;padding:16px;box-shadow:var(--sh)}
+.grad{background:linear-gradient(160deg,var(--top),var(--bot) 60%,var(--mint))}
+button{font:inherit;color:inherit;border:0;cursor:pointer;background:none}
+button:focus-visible,input:focus-visible,textarea:focus-visible{outline:3px solid var(--lavd);outline-offset:2px}
+.btn{background:var(--lavd);color:#fff;border-radius:16px;padding:13px 18px;font-weight:600;width:100%;transition:transform .15s}
+.btn:active{transform:scale(.97)}.btn.sec{background:var(--card);color:var(--lavd);border:2px solid var(--lav)}
+:root:not([data-theme=dark]) .btn{color:#fff}
+@media (prefers-color-scheme:dark){:root:not([data-theme=light]) .btn:not(.sec){color:#17152a}}
+input,textarea{font:inherit;width:100%;padding:13px 14px;border-radius:14px;border:2px solid var(--ln);background:var(--card);color:var(--tx);margin-top:6px}
+label{font-size:13px;font-weight:500;display:block;margin-top:12px}.er{color:var(--err);font-size:12px;min-height:16px;margin-top:3px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.q{border-radius:22px;padding:16px;text-align:left;box-shadow:var(--sh);min-height:112px;transition:transform .15s}.q:active{transform:scale(.96)}
+.q b{display:block;font-size:14px;margin-top:6px}.q span{font-size:28px}
+.nav{display:flex;background:var(--card);border-top:1px solid var(--ln);padding:6px 4px calc(6px + env(safe-area-inset-bottom,0px));box-shadow:0 -4px 16px rgba(124,95,214,.08)}
+.nav button{flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;font-size:11px;color:var(--mu);padding:6px 0;border-radius:14px}
+.nav button i{font-style:normal;font-size:20px;padding:2px 16px;border-radius:14px;transition:.25s}
+.nav button.on{color:var(--lavd);font-weight:600}.nav button.on i{background:var(--lav)}
+.chip{display:inline-block;padding:8px 14px;border-radius:99px;background:var(--card);border:1.5px solid var(--lav);font-size:13px;margin:0 6px 8px 0}
+.chip.on{background:var(--lavd);color:#fff;border-color:var(--lavd)}
+.chat{flex:1;overflow-y:auto;display:flex;flex-direction:column;gap:10px;padding:8px 0}
+.b{max-width:80%;padding:11px 14px;border-radius:20px;font-size:14px;line-height:1.45;animation:fade .3s}
+.b.bot{background:var(--card);border-bottom-left-radius:6px;box-shadow:var(--sh);align-self:flex-start}
+.b.me{background:var(--lavd);color:#fff;border-bottom-right-radius:6px;align-self:flex-end}
+@media (prefers-color-scheme:dark){:root:not([data-theme=light]) .b.me{color:#17152a}}
+.dots span{display:inline-block;width:7px;height:7px;margin:0 2px;border-radius:50%;background:var(--mu);animation:bn 1s infinite}.dots span:nth-child(2){animation-delay:.15s}.dots span:nth-child(3){animation-delay:.3s}
+@keyframes bn{50%{transform:translateY(-5px);opacity:.4}}
+.moods{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.mo{background:var(--card);border:2px solid var(--ln);border-radius:18px;padding:12px 4px;font-size:12px}.mo span{display:block;font-size:30px}.mo.on{border-color:var(--lavd);background:var(--lav)}
+.bars{display:flex;align-items:flex-end;justify-content:space-between;height:130px;gap:8px;margin-top:10px}
+.bar{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;height:100%;font-size:11px;color:var(--mu)}
+.bar div{width:100%;border-radius:10px 10px 4px 4px;background:linear-gradient(var(--lavd),var(--lav));transition:height .6s}
+.orb{width:210px;height:210px;margin:18px auto;display:grid;place-items:center;position:relative}
+.orb i{position:absolute;inset:0;border-radius:50%;background:radial-gradient(circle,var(--mint),var(--blue) 60%,var(--lav));transform:scale(.55);transition:transform 4s ease-in-out;box-shadow:0 0 50px var(--lav)}
+.orb b{position:relative;font-size:20px;font-weight:600}
+.row{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:14px 0;border-bottom:1px solid var(--ln);width:100%;text-align:left}
+.tg{width:46px;height:26px;border-radius:99px;background:var(--ln);position:relative;transition:.2s;flex:none}.tg:after{content:"";position:absolute;top:3px;left:3px;width:20px;height:20px;border-radius:50%;background:#fff;transition:.2s}.tg.on{background:var(--lavd)}.tg.on:after{left:23px}
+.fab{position:absolute;top:14px;right:14px;z-index:5;background:var(--card);color:var(--err);font-size:12px;font-weight:600;padding:7px 12px;border-radius:99px;box-shadow:var(--sh);border:1.5px solid var(--err)}
+#sheet{position:absolute;inset:0;background:rgba(20,15,40,.5);z-index:20;display:none;align-items:flex-end}#sheet.on{display:flex}
+#sheet>div{background:var(--bg);width:100%;border-radius:26px 26px 0 0;padding:22px 18px 28px;max-height:85%;overflow-y:auto;animation:fade .3s}
+#toast{position:absolute;left:50%;bottom:90px;transform:translateX(-50%);background:var(--tx);color:var(--bg);padding:10px 18px;border-radius:99px;font-size:13px;opacity:0;transition:.3s;z-index:30;pointer-events:none;white-space:nowrap}#toast.on{opacity:1}
+.logo{width:96px;height:96px;border-radius:30px;background:var(--card);display:grid;place-items:center;font-size:50px;box-shadow:var(--sh);margin:0 auto 14px}
+.ctr{text-align:center}.disc{background:var(--blue);border-radius:16px;padding:12px;font-size:12px;line-height:1.5}
+.sess{display:flex;gap:12px;align-items:center;width:100%;text-align:left;padding:14px;border-radius:18px;background:var(--card);margin-bottom:10px;box-shadow:var(--sh);border:2px solid transparent}.sess.on{border-color:var(--lavd)}.sess span{font-size:26px}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style></head><body>
+<div id="app">
+<button class="fab" id="sos" hidden aria-label="Crisis help">🆘 Need help now?</button>
+
+<!-- 1 Splash -->
+<section class="scr grad flex on ctr" id="splash" style="justify-content:center"><div class="logo">🪷</div><h1>MindCare</h1><p class="mu" style="font-size:16px;margin-top:6px">Your Mind Matters.</p></section>
+
+<!-- 2 Welcome -->
+<section class="scr" id="welcome">
+<div class="ctr" style="margin-top:14px"><svg width="170" height="120" viewBox="0 0 170 120" aria-hidden="true"><circle cx="85" cy="60" r="52" fill="var(--mint)"/><circle cx="120" cy="38" r="16" fill="var(--blue)"/><path d="M85 95c-22-4-34-20-34-32 14 0 26 6 34 18 8-12 20-18 34-18 0 12-12 28-34 32z" fill="var(--lavd)"/><circle cx="85" cy="48" r="12" fill="var(--lav)"/></svg>
+<h1>Welcome to MindCare.</h1><p class="mu">A calm space to understand your feelings.</p></div>
+<div class="card" style="margin-top:16px">
+<div><button class="chip on" id="tl">Login</button><button class="chip" id="ts">Sign Up</button></div>
+<div id="nmw" hidden><label for="nm">Name</label><input id="nm" autocomplete="name"><div class="er" id="e0"></div></div>
+<label for="em">Email</label><input id="em" type="email" autocomplete="email" placeholder="you@example.com"><div class="er" id="e1"></div>
+<label for="pw">Password</label><input id="pw" type="password" autocomplete="current-password" placeholder="Min 6 characters"><div class="er" id="e2"></div>
+<button class="btn" id="go" style="margin-top:8px">Login</button></div>
+<button class="btn sec" id="guest" style="margin-top:12px">Continue as Guest</button>
+</section>
+
+<!-- 3 Home -->
+<section class="scr" id="home">
+<p class="mu" id="date"></p><h1 id="hi">Hello, how are you feeling today?</h1>
+<div class="card" style="margin-top:14px;background:linear-gradient(135deg,var(--lav),var(--blue))"><b>Daily mood check-in</b><p class="mu" style="color:inherit;opacity:.8">Tap how you feel right now</p>
+<div id="hm" style="display:flex;justify-content:space-between;margin-top:10px;font-size:30px"></div></div>
+<h2>Quick access</h2>
+<div class="grid">
+<button class="q" data-go="chat" style="background:var(--lav)"><span>💬</span><b>Talk to AI Therapist</b></button>
+<button class="q" data-go="mood" style="background:var(--blue)"><span>📈</span><b>Track Your Mood</b></button>
+<button class="q" data-go="med" style="background:var(--mint)"><span>🧘</span><b>Guided Meditation</b></button>
+<button class="q" data-go="tips" style="background:var(--card)"><span>💡</span><b>Daily Wellness Tips</b></button></div>
+<h2>Quote of the day</h2><div class="card"><p id="qt" style="font-style:italic"></p></div>
+</section>
+
+<!-- 4 Chat -->
+<section class="scr flex" id="chat" style="padding-top:56px">
+<div class="disc">🛈 MindCare's chatbot is <b>not a licensed therapist</b> and does not replace professional mental health care.</div>
+<div class="chat" id="msgs" aria-live="polite"></div>
+<div id="starters" style="margin:6px 0"></div>
+<div style="display:flex;gap:8px"><input id="ci" placeholder="Type how you feel…" style="margin:0"><button class="btn" id="send" style="width:56px;padding:0" aria-label="Send">➤</button></div>
+</section>
+
+<!-- 5 Mood -->
+<section class="scr" id="mood" style="padding-top:56px">
+<h1>How are you feeling?</h1><div class="moods" id="mp" style="margin-top:14px"></div>
+<label for="jn">Journal note (optional)</label><textarea id="jn" rows="3" placeholder="What's on your mind?"></textarea>
+<button class="btn" id="sm" style="margin-top:12px">Save Mood</button>
+<h2>Last 7 days</h2><div class="card"><div class="bars" id="bars"></div><p class="mu" id="sum" style="margin-top:12px"></p></div>
+<button class="btn sec" id="hist" style="margin-top:12px">View mood history</button>
+</section>
+
+<!-- 6 Meditation -->
+<section class="scr" id="med" style="padding-top:56px">
+<h1>Meditation</h1><div id="ses" style="margin-top:12px"></div>
+<div class="card ctr"><p class="mu" id="sn"></p>
+<div class="orb"><i id="orb"></i><b id="ph">Ready</b></div>
+<p id="ins">Breathe in, hold, and breathe out.</p>
+<h1 id="tm" style="margin:8px 0 14px">05:00</h1>
+<div style="display:flex;gap:8px"><button class="btn" id="st">Start</button><button class="btn sec" id="pa">Pause</button><button class="btn sec" id="rs">Reset</button></div></div>
+</section>
+
+<!-- 7 Tips -->
+<section class="scr" id="tips" style="padding-top:56px">
+<h1>Daily Wellness Tips</h1>
+<div class="card" style="margin:12px 0;background:linear-gradient(135deg,var(--mint),var(--blue))"><b>✨ Today's affirmation</b><p id="af" style="margin-top:6px"></p></div>
+<div id="cats"></div><div id="tl2"></div>
+</section>
+
+<!-- 8 Profile -->
+<section class="scr" id="profile" style="padding-top:56px">
+<div class="ctr"><div class="logo" style="width:84px;height:84px;font-size:42px">🙂</div><h1 id="pn">Aarav Sharma</h1><p class="mu" id="pe">aarav@example.com</p></div>
+<div class="card" style="margin-top:16px;padding:4px 16px">
+<button class="row" id="pe1"><span>✏️ Edit profile</span>›</button>
+<button class="row" id="ph1"><span>📅 Mood history</span>›</button>
+<div class="row"><span>🔔 Notifications</span><button class="tg on" id="t1" role="switch" aria-checked="true" aria-label="Notifications"></button></div>
+<div class="row"><span>🔒 Privacy: save data on device</span><button class="tg on" id="t2" role="switch" aria-checked="true" aria-label="Privacy"></button></div>
+<div class="row"><span>🌙 Dark mode</span><button class="tg" id="t3" role="switch" aria-checked="false" aria-label="Dark mode"></button></div>
+<button class="row" id="hp" style="border:0"><span>🆘 Get support</span>›</button></div>
+<button class="btn sec" id="lo" style="margin-top:14px">Logout</button>
+<div class="disc" style="margin-top:14px">MindCare is a wellness support <b>prototype</b>. It does not diagnose conditions, recommend medication, or replace a licensed mental health professional.</div>
+</section>
+
+<nav class="nav" id="nav" hidden></nav>
+<div id="sheet"><div id="sb"></div></div><div id="toast" role="status"></div>
+</div>
+<script>
+const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
+const MOODS=[["Happy","😊",5],["Calm","😌",4],["Neutral","😐",3],["Sad","😢",2],["Anxious","😟",2],["Stressed","😣",1]];
+const TABS=[["home","🏠","Home"],["chat","💬","Chat"],["mood","📈","Mood"],["med","🧘","Meditate"],["profile","👤","Profile"]];
+const QUOTES=["You don't have to control your thoughts; you just have to stop letting them control you.","Small steps every day still move you forward.","Feelings are visitors. Let them come and go.","Rest is productive too."];
+const TIPS=[["Stress","Try the 5-4-3-2-1 grounding technique: name 5 things you see, 4 you feel, 3 you hear, 2 you smell, 1 you taste."],["Stress","Break big tasks into tiny steps and celebrate each one."],["Sleep","Keep a steady sleep schedule and dim screens 30 minutes before bed."],["Sleep","A short wind-down routine, like stretching or reading, tells your body it's time to rest."],["Mindfulness","Take three slow breaths before you open your phone in the morning."],["Mindfulness","Eat one meal today without distractions, noticing each bite."],["Self-care","Schedule 15 minutes just for something you enjoy."],["Self-care","Drink water, step outside, and stretch: tiny kindnesses add up."],["Positive","Write down three things that went okay today, however small."],["Positive","Talk to yourself like you would talk to a good friend."]];
+const AFF=["I am doing the best I can, and that is enough.","I allow myself to rest without guilt.","My feelings are valid, and they will pass."];
+const REPLIES={stress:"That sounds heavy, and I'm glad you said it. Let's slow down together: breathe in for 4, hold for 4, out for 6. What's the biggest thing weighing on you right now?",anx:"Anxiety can feel overwhelming, and you're not alone in this. Try placing a hand on your chest and taking a few slow breaths. Would you like to tell me what's been on your mind?",mood:"Wanting to feel better is a great first step. Small things can help: a short walk, music you love, or reaching out to someone. What usually lifts your spirits?",relax:"Let's relax together. Unclench your jaw, drop your shoulders, and breathe out slowly. You can also try the breathing exercise in the Meditate tab.",sad:"I'm sorry you're feeling low. Your feelings matter, and it's okay not to be okay. Do you want to share what happened?",sleep:"Trouble sleeping is tough. A calm routine, dim lights, and slow breathing can help. The Sleep Relaxation session may be a gentle place to start.",def:"Thank you for sharing that with me. I'm here to listen without judgment. Can you tell me a bit more about how it feels?"};
+const CRISIS=/suicid|kill myself|end my life|want to die|self.?harm|hurt myself/i;
+const store={get(k,d){try{const v=localStorage.getItem('mc_'+k);return v?JSON.parse(v):d}catch(e){return d}},set(k,v){try{localStorage.setItem('mc_'+k,JSON.stringify(v))}catch(e){}}};
+const day=n=>{const d=new Date();d.setDate(d.getDate()-n);return d.toISOString().slice(0,10)};
+let hist=store.get('hist',null)||[[6,"Stressed","Exam week"],[5,"Anxious",""],[4,"Neutral","Quiet day"],[3,"Calm","Evening walk"],[2,"Happy","Met friends"],[1,"Calm",""],].map(([n,m,t])=>({d:day(n),m,t}));
+let user=store.get('user',{name:"Aarav Sharma",email:"aarav@example.com"}),fav=store.get('fav',[]),sel=null,cat="All",mode="login";
+function toast(t){const e=$('#toast');e.textContent=t;e.classList.add('on');clearTimeout(toast.t);toast.t=setTimeout(()=>e.classList.remove('on'),2200)}
+function show(id){$$('.scr').forEach(s=>s.classList.toggle('on',s.id===id));$$('.nav button').forEach(b=>b.classList.toggle('on',b.dataset.t===id));$('#'+id).scrollTop=0;if(id!=='med')pause();if(id==='mood')drawMood();if(id==='tips')drawTips()}
+function sheet(html){$('#sb').innerHTML=html;$('#sheet').classList.add('on')}
+$('#sheet').onclick=e=>{if(e.target.id==='sheet')e.target.classList.remove('on')};
+// nav
+$('#nav').innerHTML=TABS.map(([k,i,l])=>`<button data-t="${k}"><i>${i}</i>${l}</button>`).join('');
+$$('.nav button').forEach(b=>b.onclick=()=>show(b.dataset.t));
+$$('[data-go]').forEach(b=>b.onclick=()=>show(b.dataset.go));
+function enter(){$('#nav').hidden=false;$('#sos').hidden=false;$('#pn').textContent=user.name;$('#pe').textContent=user.email;show('home')}
+setTimeout(()=>{$('#splash').classList.remove('on');$('#welcome').classList.add('on')},2200);
+// auth
+function setMode(m){mode=m;$('#tl').classList.toggle('on',m==='login');$('#ts').classList.toggle('on',m==='signup');$('#nmw').hidden=m==='login';$('#go').textContent=m==='login'?'Login':'Create account'}
+$('#tl').onclick=()=>setMode('login');$('#ts').onclick=()=>setMode('signup');
+$('#go').onclick=()=>{let ok=true;const em=$('#em').value.trim(),pw=$('#pw').value,nm=$('#nm').value.trim();
+$('#e0').textContent=mode==='signup'&&nm.length<2?(ok=false,'Please enter your name'):'';
+$('#e1').textContent=/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(em)?'':(ok=false,'Enter a valid email address');
+$('#e2').textContent=pw.length>=6?'':(ok=false,'Password must be at least 6 characters');
+if(!ok)return;user={name:mode==='signup'?nm:(em.split('@')[0]),email:em};store.set('user',user);toast(mode==='signup'?'Account created. Welcome!':'Welcome back!');enter()};
+$('#guest').onclick=()=>{user={name:'Guest',email:'guest@mindcare.app'};enter()};
+// home
+$('#date').textContent=new Date().toLocaleDateString(undefined,{weekday:'long',month:'long',day:'numeric'});
+$('#qt').textContent='“'+QUOTES[new Date().getDate()%QUOTES.length]+'”';
+$('#hm').innerHTML=MOODS.map(([n,e])=>`<button aria-label="${n}" data-m="${n}">${e}</button>`).join('');
+$$('#hm button').forEach(b=>b.onclick=()=>{sel=b.dataset.m;show('mood');pick(sel)});
+// chat
+function bub(t,w){const d=document.createElement('div');d.className='b '+w;d.textContent=t;$('#msgs').append(d);$('#msgs').scrollTop=1e5;return d}
+bub("Hi, I'm MindCare's virtual companion. I'm here to listen. How are you feeling today?",'bot');
+const ST=["I'm feeling stressed.","I feel anxious today.","I want to improve my mood.","Help me relax."];
+$('#starters').innerHTML=ST.map(s=>`<button class="chip">${s}</button>`).join('');
+$$('#starters .chip').forEach(c=>c.onclick=()=>say(c.textContent));
+function say(t){t=t.trim();if(!t)return;$('#starters').hidden=true;bub(t,'me');$('#ci').value='';
+const ty=bub('','bot');ty.innerHTML='<span class="dots"><span></span><span></span><span></span></span>';
+setTimeout(()=>{const l=t.toLowerCase();let r;
+if(CRISIS.test(t)){r="I'm really glad you told me, and I'm concerned about your safety. You deserve immediate support from a real person. Please contact a crisis line or emergency services now. I'm opening help options for you.";setTimeout(crisis,600)}
+else r=/stress|overwhelm|pressure/.test(l)?REPLIES.stress:/anx|worr|panic|nervous/.test(l)?REPLIES.anx:/mood|better|happy/.test(l)?REPLIES.mood:/relax|calm/.test(l)?REPLIES.relax:/sad|down|lonely|cry/.test(l)?REPLIES.sad:/sleep|insomnia|tired/.test(l)?REPLIES.sleep:REPLIES.def;
+ty.textContent=r;$('#msgs').scrollTop=1e5},1300)}
+$('#send').onclick=()=>say($('#ci').value);$('#ci').onkeydown=e=>{if(e.key==='Enter')say($('#ci').value)};
+// mood
+$('#mp').innerHTML=MOODS.map(([n,e])=>`<button class="mo" data-m="${n}"><span>${e}</span>${n}</button>`).join('');
+function pick(n){sel=n;$$('.mo').forEach(b=>b.classList.toggle('on',b.dataset.m===n))}
+$$('.mo').forEach(b=>b.onclick=()=>pick(b.dataset.m));
+$('#sm').onclick=()=>{if(!sel)return toast('Please select a mood first');const d=day(0);hist=hist.filter(h=>h.d!==d);hist.push({d,m:sel,t:$('#jn').value.trim()});store.set('hist',hist);$('#jn').value='';toast('Mood saved. Thank you for checking in 💜');drawMood()};
+const sc=n=>MOODS.find(m=>m[0]===n)[2],em=n=>MOODS.find(m=>m[0]===n)[1];
+function drawMood(){const last=[6,5,4,3,2,1,0].map(n=>{const d=day(n);return{d,h:hist.find(x=>x.d===d)}});
+$('#bars').innerHTML=last.map(({d,h})=>`<div class="bar" title="${h?h.m:'No entry'}"><div style="height:${h?sc(h.m)*18:4}px"></div><span>${h?em(h.m):'·'}</span><span>${new Date(d+'T00:00').toLocaleDateString(undefined,{weekday:'short'}).slice(0,2)}</span></div>`).join('');
+const e=last.filter(x=>x.h);const av=e.reduce((a,x)=>a+sc(x.h.m),0)/(e.length||1);const cnt={};e.forEach(x=>cnt[x.h.m]=(cnt[x.h.m]||0)+1);const top=Object.entries(cnt).sort((a,b)=>b[1]-a[1])[0];
+$('#sum').textContent=e.length?`Weekly summary: ${e.length} check-ins, most often "${top[0]}". Your average mood is ${av>=4?'bright':av>=3?'steady':'on the lower side; be gentle with yourself'}.`:'No entries yet.'}
+function showHist(){sheet(`<h2 style="margin-top:0">Mood history</h2>`+[...hist].sort((a,b)=>b.d<a.d?-1:1).map(h=>`<div class="row"><span>${em(h.m)} <b>${h.m}</b><br><span class="mu">${h.t||'No note'}</span></span><span class="mu">${h.d}</span></div>`).join('')+`<button class="btn" style="margin-top:14px" onclick="$('#sheet').classList.remove('on')">Close</button>`)}
+$('#hist').onclick=showHist;$('#ph1').onclick=showHist;
+// meditation
+const SES=[["🌬️","5-minute breathing exercise",5],["🧠","Stress relief meditation",10],["🌙","Sleep relaxation",15],["🌿","Mindfulness practice",8]];
+let secs=300,tot=300,run=null,el=0;
+$('#ses').innerHTML=SES.map((s,i)=>`<button class="sess${i?'':' on'}" data-i="${i}"><span>${s[0]}</span><div><b>${s[1]}</b><br><span class="mu" style="font-size:12px">${s[2]} min</span></div></button>`).join('');
+function fmt(s){return String(Math.floor(s/60)).padStart(2,'0')+':'+String(s%60).padStart(2,'0')}
+function choose(i){pause();$$('.sess').forEach((b,j)=>b.classList.toggle('on',i===j));tot=secs=SES[i][2]*60;el=0;$('#tm').textContent=fmt(secs);$('#sn').textContent=SES[i][1];$('#ph').textContent='Ready';$('#orb').style.transform='scale(.55)'}
+$$('.sess').forEach(b=>b.onclick=()=>choose(+b.dataset.i));choose(0);
+function phase(){const t=el%14,o=$('#orb');if(t<4){$('#ph').textContent='Breathe in';o.style.transitionDuration='4s';o.style.transform='scale(1)'}else if(t<8){$('#ph').textContent='Hold'}else{$('#ph').textContent='Breathe out';o.style.transitionDuration='6s';o.style.transform='scale(.55)'}}
+function pause(){clearInterval(run);run=null}
+$('#st').onclick=()=>{if(run)return;if(secs<=0)choose($$('.sess').findIndex(b=>b.classList.contains('on')));phase();run=setInterval(()=>{secs--;el++;$('#tm').textContent=fmt(secs);if(secs<=0){pause();$('#ph').textContent='Done 🌸';toast('Session complete. Well done! 💜');return}phase()},1000)};
+$('#pa').onclick=()=>{if(run){pause();$('#ph').textContent='Paused'}};
+$('#rs').onclick=()=>choose($$('.sess').findIndex(b=>b.classList.contains('on')));
+// tips
+$('#af').textContent=AFF[new Date().getDate()%AFF.length];
+const CATS=["All","Stress","Sleep","Mindfulness","Self-care","Positive"];
+function drawTips(){$('#cats').innerHTML=CATS.map(c=>`<button class="chip${c===cat?' on':''}" data-c="${c}">${c}</button>`).join('');
+$('#tl2').innerHTML=TIPS.map((t,i)=>[t,i]).filter(([t])=>cat==='All'||t[0]===cat).map(([t,i])=>`<div class="card" style="margin-bottom:12px;display:flex;gap:10px;justify-content:space-between"><div><span class="mu" style="font-weight:600;color:var(--lavd)">${t[0]}</span><p style="margin-top:4px;font-size:14px">${t[1]}</p></div><button data-f="${i}" aria-label="Bookmark" style="font-size:22px">${fav.includes(i)?'🔖':'📑'}</button></div>`).join('');
+$$('#cats .chip').forEach(b=>b.onclick=()=>{cat=b.dataset.c;drawTips()});
+$$('[data-f]').forEach(b=>b.onclick=()=>{const i=+b.dataset.f;fav=fav.includes(i)?fav.filter(x=>x!==i):[...fav,i];store.set('fav',fav);toast(fav.includes(i)?'Saved to favorites':'Removed from favorites');drawTips()})}
+// profile
+function tog(id,fn){const b=$(id);b.onclick=()=>{b.classList.toggle('on');b.setAttribute('aria-checked',b.classList.contains('on'));fn&&fn(b.classList.contains('on'))}}
+tog('#t1',v=>toast(v?'Notifications on':'Notifications off'));tog('#t2',v=>toast(v?'Data saved on this device':'Data will not be saved'));
+tog('#t3',v=>document.documentElement.dataset.theme=v?'dark':'light');
+$('#pe1').onclick=()=>{sheet(`<h2 style="margin-top:0">Edit profile</h2><label for="en">Name</label><input id="en" value="${user.name}"><button class="btn" id="es" style="margin-top:14px">Save</button>`);$('#es').onclick=()=>{const v=$('#en').value.trim();if(v.length<2)return toast('Name is too short');user.name=v;store.set('user',user);$('#pn').textContent=v;$('#sheet').classList.remove('on');toast('Profile updated')}};
+$('#lo').onclick=()=>{$('#nav').hidden=true;$('#sos').hidden=true;show('welcome');toast('Logged out')};
+// crisis
+function crisis(){sheet(`<h2 style="margin-top:0">You're not alone 💜</h2><p>If you are in immediate danger, call your local emergency number now.</p><div class="card" style="margin:12px 0"><p><b>India:</b> Tele-MANAS <a href="tel:14416">14416</a> · Emergency <a href="tel:112">112</a><br><b>USA:</b> call or text <a href="tel:988">988</a><br><b>Elsewhere:</b> findahelpline.com</p></div><p class="mu">Reaching out to a trusted friend, family member, or a licensed professional can help. MindCare is a prototype and cannot provide emergency care.</p><button class="btn" style="margin-top:14px" onclick="$('#sheet').classList.remove('on')">Close</button>`)}
+$('#sos').onclick=crisis;$('#hp').onclick=crisis;
+</script></body></html>
